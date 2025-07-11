@@ -1,0 +1,24 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "f32ec309db85df6ed7a2334fd07da2fa"
+name = "test-remix-fresh-app"
+handle = "test-remix-fresh-app"
+application_url = "https://qt-loading-retreat-serum.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true
+
+[webhooks]
+api_version = "2025-04"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = ["https://qt-loading-retreat-serum.trycloudflare.com/auth/callback", "https://qt-loading-retreat-serum.trycloudflare.com/auth/shopify/callback", "https://qt-loading-retreat-serum.trycloudflare.com/api/auth/callback"]
+
+[pos]
+embedded = false

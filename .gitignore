@@ -4,3 +4,31 @@
 # React Router
 /.react-router/
 /build/
+
+# Build
+/.cache
+/build
+/app/build
+/public/build/
+/public/_dev
+/app/public/build
+
+# Prisma
+/prisma/dev.sqlite
+/prisma/dev.sqlite-journal
+database.sqlite
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Extensions
+/extensions/*/dist
+
+# Ignore shopify files created during app dev
+.shopify/*
+.shopify.lock
+
+# Logs
+logs

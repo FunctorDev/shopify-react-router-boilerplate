@@ -1,0 +1,55 @@
+version: '3.8'
+name: 'shopify-react-router-v7-boilerplate-local'
+
+services:
+  alloy:
+    image: grafana/alloy:v1.9.2
+    ports:
+      - 19100:12345
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy
+      - alloy-data:/var/lib/alloy/data
+      - ../logs:/logs:ro
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    networks:
+      - shopify-react-router-v7-boilerplate-network-ops
+
+  node-exporter:
+    image: prom/node-exporter:v1.9.1
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($|/)'
+    ports:
+      - 19101:9100
+    networks:
+      - shopify-react-router-v7-boilerplate-network-ops
+    restart: unless-stopped
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.0
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports:
+      - 19102:8080
+    networks:
+      - shopify-react-router-v7-boilerplate-network-ops
+    restart: unless-stopped
+
+volumes:
+  alloy-data:
+    driver: local
+
+networks:
+  shopify-react-router-v7-boilerplate-network-ops:
+    external: true
